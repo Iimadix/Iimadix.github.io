@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Динамическая таблица</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td {
+            width: 10px;
+            height: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <table id="myTable"></table>
+
+    <script>
+        const table = document.getElementById("myTable");
+        
+        for (let i = 0; i < 100; i++) {
+            let row = table.insertRow();
+            for (let j = 0; j < 100; j++) {
+                let cell = row.insertCell();
+                cell.style.backgroundColor = getRandomColor();
+            }
+        }
+
+        function getRandomColor() {
+            return `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+        }
+    </script>
+</body>
+</html>
