@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Двигающиеся элементы</title>
+    <style>
+        body {
+            position: relative;
+            height: 200px;
+        }
+        .box {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 100px;
+        }
+        .red { background: red; }
+        .blue { background: blue; }
+    </style>
+</head>
+<body>
+    <div id="box1" class="box red" style="left: 0px;"></div>
+    <div id="box2" class="box blue" style="left: 300px;"></div>
+
+    <script>
+        let box1 = document.getElementById("box1");
+        let box2 = document.getElementById("box2");
+
+        let pos1 = 0;
+        let pos2 = 300;
+
+        const speed1 = 2;
+        const speed2 = -2;
+
+        const interval = setInterval(() => {
+            pos1 += speed1;
+            pos2 += speed2;
+            box1.style.left = pos1 + "px";
+            box2.style.left = pos2 + "px";
+        }, 20);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    console.log("Столкновение!");
+                    clearInterval(interval);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(box1);
+        observer.observe(box2);
+    </script>
+</body>
+</html>
