@@ -33,24 +33,29 @@
         const speed1 = 2;
         const speed2 = -2;
 
+        function checkCollision() {
+            let rect1 = box1.getBoundingClientRect();
+            let rect2 = box2.getBoundingClientRect();
+
+            return !(
+                rect1.right < rect2.left ||
+                rect1.left > rect2.right ||
+                rect1.bottom < rect2.top ||
+                rect1.top > rect2.bottom
+            );
+        }
+
         const interval = setInterval(() => {
             pos1 += speed1;
             pos2 += speed2;
             box1.style.left = pos1 + "px";
             box2.style.left = pos2 + "px";
+
+            if (checkCollision()) {
+                console.log("Столкновение!");
+                clearInterval(interval);
+            }
         }, 20);
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    console.log("Столкновение!");
-                    clearInterval(interval);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(box1);
-        observer.observe(box2);
     </script>
 </body>
 </html>
